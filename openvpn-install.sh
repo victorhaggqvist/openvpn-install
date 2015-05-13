@@ -93,12 +93,20 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			echo "Tell me a name for the client cert"
 			echo "Please, use one word only, no special characters"
 			read -p "Client name: " -e -i client CLIENT
+			read -p "CLIENT Cert expires in X Days: " -e -i "365" CLIENT_TTL
+			read -p "Password for the cert? [y/N] " -e -i "n" CLIENT_PW_CRT_OPT
+			if [[ "$CLIENT_PW_CRT_OPT" = 'y' ]]; then
+				CLIENT_PW_CRT="--pass"
+			else
+				CLIENT_PW_CRT=""
+			fi
 			cd /etc/openvpn/easy-rsa/2.0/
 			source ./vars
 			# build-key for the client
 			export KEY_CN="$CLIENT"
+			export KEY_EXPIRE="$CLIENT_TTL"
 			export EASY_RSA="${EASY_RSA:-.}"
-			"$EASY_RSA/pkitool" --pass $CLIENT
+			"$EASY_RSA/pkitool" "$CLIENT_PW_CRT" "$CLIENT"
 			# Generate the client.ovpn
 			newclient "$CLIENT"
 			echo ""
