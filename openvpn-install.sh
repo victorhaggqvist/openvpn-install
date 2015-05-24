@@ -94,7 +94,7 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			echo "Please, use one word only, no special characters"
 			read -p "Client name: " -e -i client CLIENT
 			read -p "CLIENT Cert expires in X Days: " -e -i "365" CLIENT_TTL
-			read -p "Password for the cert? [y/N] " -e -i "n" CLIENT_PW_CRT_OPT
+			read -p "Password for the cert? [Y/n] " -e -i "y" CLIENT_PW_CRT_OPT
 			if [[ "$CLIENT_PW_CRT_OPT" = 'y' ]]; then
 				CLIENT_PW_CRT="--pass"
 			else
