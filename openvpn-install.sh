@@ -98,7 +98,7 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			# build-key for the client
 			export KEY_CN="$CLIENT"
 			export EASY_RSA="${EASY_RSA:-.}"
-			"$EASY_RSA/pkitool" $CLIENT
+			"$EASY_RSA/pkitool" --pass $CLIENT
 			# Generate the client.ovpn
 			newclient "$CLIENT"
 			echo ""
